@@ -1,0 +1,44 @@
+--To get an oveeview of all the entries of the tables in the database we write the following commands one by one
+SELECT * FROM client;
+SELECT * FROM branch;
+SELECT * FROM employee;
+SELECT * FROM branch_supplier;
+SELECT * FROM employee_client_relation;
+
+# Find the ten oldest employees of the company 
+SELECT first_name, last_namw, birthday, CURDATE(),
+       TIMESTAMPDIFF(YEAR,birthday,CURDATE()) AS age
+       FROM employee ORDER BY age DESC 
+       LIMIT 10;
+-- I have miswritten the name of the column last_name on the emplyee table when I've created it, the following command wll correct it
+ALTER TABLE employee RENAME COLUMN last_namw TO last_name;
+
+# Find the five most paid employees */
+SELECT first_name, last_name, salary
+FROM employee ORDER BY salary DESC
+LIMIT 5;
+
+# Find the number of female and male employees */
+SELECT COUNT(*), sex 
+FROM employee
+GROUP BY sex;
+
+# List all the employees whose birthday month is June */
+SELECT *
+FROM employee
+WHERE birthday LIKE "____-06-__";
+
+# Find the suppliers whose name starts with H */
+SELECT *
+FROM branch_supplier
+WHERE supplier_name LIKE "H%";
+
+# Find the name of the branches and their respective manager
+SELECT e.employee_id, e.first_name, e.last_name, b.branch_name
+FROM employee AS e
+JOIN branch AS b /* LEFT or RIGHT joins could be used */
+WHERE e.employee_id=b.manager_id;
+
+
+
+
