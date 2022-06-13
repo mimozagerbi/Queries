@@ -33,11 +33,40 @@ SELECT *
 FROM branch_supplier
 WHERE supplier_name LIKE "H%";
 
+# Find the name of emplyees who have sold more than 55000 to a client
+
+SELECT employee.first_name, employee.last_name
+FROM employee
+WHERE employee.employee_id IN (
+	Select employee_client_relation.employee_id
+	from employee_client_relation
+	where employee_client_relation.total_sales > 55000);
+       
+# Categorize the salary into three groups: high, medium, low and find the number of employees in each category
+
+SELECT COUNT(*) AS employee_nr, 
+CASE 
+WHEN salary>200000 THEN "high"
+WHEN salary BETWEEN 100000 AND 200000 THEN "medium"
+WHEN salary < 100000 THEN "low"
+END "salary_category"
+from employee
+GROUP BY salary_category;
+
+
 # Find the name of the branches and their respective manager
 SELECT e.employee_id, e.first_name, e.last_name, b.branch_name
 FROM employee AS e
 JOIN branch AS b /* LEFT or RIGHT joins could be used */
 WHERE e.employee_id=b.manager_id;
+
+# Find the name of the clients whose contribution to the company is more than 200000
+SELECT c.client_name, r.total_sales 
+FROM client AS c
+JOIN employee_client_relation AS r
+WHERE c.client_id = r.client_id AND r.total_sales > 200000;
+
+
 
 
 
