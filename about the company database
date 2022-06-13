@@ -10,6 +10,7 @@ SELECT first_name, last_namw, birthday, CURDATE(),
        TIMESTAMPDIFF(YEAR,birthday,CURDATE()) AS age
        FROM employee ORDER BY age DESC 
        LIMIT 10;
+       
 -- I have miswritten the name of the column last_name on the emplyee table when I've created it, the following command wll correct it
 ALTER TABLE employee RENAME COLUMN last_namw TO last_name;
 
@@ -33,8 +34,7 @@ SELECT *
 FROM branch_supplier
 WHERE supplier_name LIKE "H%";
 
-# Find the name of emplyees who have sold more than 55000 to a client
-
+# Find the name of emplyees who have sold more than 55000 to a client using a subquery
 SELECT employee.first_name, employee.last_name
 FROM employee
 WHERE employee.employee_id IN (
@@ -43,7 +43,6 @@ WHERE employee.employee_id IN (
 	where employee_client_relation.total_sales > 55000);
        
 # Categorize the salary into three groups: high, medium, low and find the number of employees in each category
-
 SELECT COUNT(*) AS employee_nr, 
 CASE 
 WHEN salary>200000 THEN "high"
