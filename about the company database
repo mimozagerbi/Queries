@@ -14,22 +14,22 @@ SELECT first_name, last_namw, birthday, CURDATE(),
 -- I have miswritten the name of the column last_name on the emplyee table when I've created it, the following command wll correct it
 ALTER TABLE employee RENAME COLUMN last_namw TO last_name;
 
-# Find the five most paid employees */
+# Find the five most paid employees
 SELECT first_name, last_name, salary
 FROM employee ORDER BY salary DESC
 LIMIT 5;
 
-# Find the number of female and male employees */
+# Find the number of female and male employees
 SELECT COUNT(*), sex 
 FROM employee
 GROUP BY sex;
 
-# List all the employees whose birthday month is June */
+# List all the employees whose birthday month is June
 SELECT *
 FROM employee
 WHERE birthday LIKE "____-06-__";
 
-# Find the suppliers whose name starts with H */
+# Find the suppliers whose name starts with H 
 SELECT *
 FROM branch_supplier
 WHERE supplier_name LIKE "H%";
